@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using GrpcServiceProject.Models;
 using Microsoft.AspNetCore.Authentication;
 using GrpcServiceProject.Middlewares;
+using Microsoft.Extensions.Options;
 
 namespace GrpcServiceProject
 {
@@ -23,6 +24,7 @@ namespace GrpcServiceProject
         {
             services.AddGrpc();
             services.AddHealthChecks();
+            services.AddTransient<NotFoundMiddleware>();
             services.AddDbContext<AuthContext>(opt => {
                 opt.UseMySql(connectionString:@"server=localhost;user=root;password=1234567890;database=ef",serverVersion:new MySqlServerVersion(new Version(10,3,27){ })).EnableSensitiveDataLogging();
             });
@@ -33,7 +35,7 @@ namespace GrpcServiceProject
         {
 
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Builder;
 
 namespace GrpcServiceProject.Middlewares
 {
+    #region Non-IMiddleware
+    /*
     public class NotFoundMiddleware
     {
         private readonly RequestDelegate _next;
-
         public NotFoundMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -25,7 +26,20 @@ namespace GrpcServiceProject.Middlewares
                 await context.Response.WriteAsync(@"( *^-^)Not found");
                     }
         }
+    }*/
+    public class NotFoundMiddleware:IMiddleware
+    {
+        public async Task InvokeAsync(HttpContext context,RequestDelegate next)
+        {
+            await next(context);
+            if (context.Response.StatusCode == 404)
+            {
+                await context.Response.WriteAsync(@"( *^-^)Not found");
+            }
+        }
     }
+    #endregion
+
 
     public static class NotFoundMiddlewareExtensions
     {
