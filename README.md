@@ -63,5 +63,5 @@ Requirement: Go to the publish directory (`./GrpcServiceProject/bin/Release/net5
 :warning: The following command must be in one line rather than seperated to multiple lines.
 
 ```
-export serIp=[YourServerIP];export sshdPort=[YourSshdPort];ssh root@${serIp} -p ${sshdPort} "rm -rf /var/www/grpc/*";scp -P {sshdPort} -r ./* root@${serIp}:/var/www/grpc/;ssh root@${serIp} -p {sshdPort} "systemctl restart grpc;";
+rm -rf ./publish.zip;zip -qr publish.zip ./*;export serIp=[YourServerIp];export sshdPort=[YourSshdPort];scp -P ${sshdPort} -r ./publish.zip root@${serIp}:~/publish.zip;ssh root@${serIp} -p ${sshdPort} "rm -rf /var/www/grpc/*;unzip -qd /var/www/grpc/ ~/publish.zip;rm -rf ~/publish.zip;systemctl restart grpc;";rm -rf ./publish.zip;
 ```
