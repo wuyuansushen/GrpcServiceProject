@@ -21,13 +21,18 @@ namespace GrpcServiceProject
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services,IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
             services.AddHealthChecks();
             services.AddTransient<NotFoundMiddleware>();
             services.AddDbContext<AuthContext>(opt => {
-                opt.UseMySql(connectionString:configuration.GetConnectionString("MyMariaDB"),serverVersion:new MySqlServerVersion(new Version(10,3,27){ }));
+                opt.UseMySql(connectionString:_configuration.GetConnectionString("MyMariaDB"),serverVersion:new MySqlServerVersion(new Version(10,3,27){ }));
             });
         }
 
