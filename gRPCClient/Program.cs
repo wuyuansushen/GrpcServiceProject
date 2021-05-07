@@ -16,7 +16,7 @@ namespace GrpcClient
             var client =  new Greeter.GreeterClient(channel);
             var reply = await client.SayHelloAsync(
                               new HelloRequest { Name = "Gayhub" });
-            Console.WriteLine("Greeting: " + reply.Message);
+            Console.WriteLine("IP: "+reply.Message);
         }
     }
 }

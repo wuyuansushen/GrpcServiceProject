@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Pomelo.EntityFrameworkCore.MySql;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +21,13 @@ namespace GrpcServiceProject
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services,IConfiguration configuration)
         {
             services.AddGrpc();
             services.AddHealthChecks();
             services.AddTransient<NotFoundMiddleware>();
             services.AddDbContext<AuthContext>(opt => {
-                opt.UseMySql(connectionString:@"server=localhost;user=root;password=1234567890;database=ef",serverVersion:new MySqlServerVersion(new Version(10,3,27){ })).EnableSensitiveDataLogging();
+                opt.UseMySql(connectionString:configuration.GetConnectionString("MyMariaDB"),serverVersion:new MySqlServerVersion(new Version(10,3,27){ }));
             });
         }
 

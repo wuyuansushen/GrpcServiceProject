@@ -17,13 +17,13 @@ namespace GrpcServiceProject
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            Random r1 = new Random();
-            var ranNum = r1.Next(1, 10000);
-            _logger.LogInformation((new EventId(6000,"Random")),$"Random is {ranNum} {DateTime.Now}");
+            var httpContext = context.GetHttpContext();
+            var XFF = (((httpContext.Request.Headers)["X-Forwarded-For"]).ToString().Split(@","))[0];
 
+            _logger.LogInformation($"{XFF}");
             return Task.FromResult(new HelloReply()
             {
-                Message = ranNum+ "\nblank-command-line\n" + request.Name
+                Message = $"{XFF}"
             });
         }
     }
