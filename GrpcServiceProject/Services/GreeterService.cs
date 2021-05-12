@@ -27,14 +27,17 @@ namespace GrpcServiceProject
             string secret;
             using (var dbcontext = _contextFactory.CreateDbContext())
             {
-                var firUsr = dbcontext.Users.Where(b => b.ID == 1).ToList().First();
-                secret = firUsr.passwd;
+                var firUsr = dbcontext.Users.FindAsync(1);
+                _logger.LogInformation($"Before {XFF}");
+                secret = firUsr.GetAwaiter().GetResult().passwd;
+                _logger.LogInformation($"Below {XFF}");
             }
-            _logger.LogInformation($"{XFF}");
+            //_logger.LogInformation($"{XFF}");
             return Task.FromResult(new HelloReply()
             {
                 Message = $"{XFF}\nDb: {secret}"
             });
         }
+
     }
 }

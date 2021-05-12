@@ -32,12 +32,12 @@ namespace GrpcServiceProject
             services.AddHealthChecks();
             services.AddTransient<NotFoundMiddleware>();
             services.AddDbContext<AuthContext>(opt => {
-                opt.UseMySql(connectionString:_configuration.GetConnectionString("MyMariaDB"),serverVersion:new MySqlServerVersion(new Version(10,3,27){ }));
+                opt.UseMySql(connectionString:_configuration.GetConnectionString("MyMariaDB"),serverVersion:new MySqlServerVersion(new Version(10,3){ }));
             });
             
             services.AddDbContextFactory<AuthContext>(opt =>
             {
-                opt.UseMySql(connectionString: _configuration.GetConnectionString("MyMariaDB"), serverVersion: new MySqlServerVersion(new Version(10, 3, 27) { }));
+                opt.UseMySql(connectionString: _configuration.GetConnectionString("MyMariaDB"), serverVersion: new MySqlServerVersion(new Version(10, 3) { }));
             });
         }
 

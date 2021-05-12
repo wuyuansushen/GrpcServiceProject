@@ -16,6 +16,10 @@ namespace GrpcServiceProject.Models
         {
             modelBuilder.Entity<User>().ToTable("Auth");
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
     }
 
     public class User
