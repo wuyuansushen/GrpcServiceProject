@@ -10,7 +10,6 @@ namespace GrpcServiceProject.Models
 
         public AuthContext(DbContextOptions<AuthContext> opt):base(opt)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -4,15 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore;
 
 namespace GrpcServiceProject
 {
     public class GreeterService : Greeter.GreeterBase
     {
         private readonly ILogger<GreeterService> _logger;
-        public GreeterService(ILogger<GreeterService> logger)
+        private readonly IDbContextFactory<Models.AuthContext> _contextFactory;
+        public GreeterService(ILogger<GreeterService> logger,IDbContextFactory<Models.AuthContext> contextFactory)
         {
             _logger = logger;
+            _contextFactory = contextFactory;
         }
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
@@ -20,10 +24,16 @@ namespace GrpcServiceProject
             var httpContext = context.GetHttpContext();
             var XFF = (((httpContext.Request.Headers)["X-Forwarded-For"]).ToString().Split(@","))[0];
 
+            string secret;
+            using (var dbcontext = _contextFactory.CreateDbContext())
+            {
+                var firUsr = dbcontext.Users.Where(b => b.ID == 1).ToList().First();
+                secret = firUsr.passwd;
+            }
             _logger.LogInformation($"{XFF}");
             return Task.FromResult(new HelloReply()
             {
-                Message = $"{XFF}"
+                Message = $"{XFF}\nDb: {secret}"
             });
         }
     }

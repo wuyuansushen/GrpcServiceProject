@@ -11,7 +11,7 @@ namespace GrpcServiceProject.Data
         public static void Initialize(AuthContext context)
         {
             var rootUser = new User() {
-                ID = 0,
+                ID = 1,
                 userName="root",
                 passwd="1234567890"
             };

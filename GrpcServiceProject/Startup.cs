@@ -34,6 +34,11 @@ namespace GrpcServiceProject
             services.AddDbContext<AuthContext>(opt => {
                 opt.UseMySql(connectionString:_configuration.GetConnectionString("MyMariaDB"),serverVersion:new MySqlServerVersion(new Version(10,3,27){ }));
             });
+            
+            services.AddDbContextFactory<AuthContext>(opt =>
+            {
+                opt.UseMySql(connectionString: _configuration.GetConnectionString("MyMariaDB"), serverVersion: new MySqlServerVersion(new Version(10, 3, 27) { }));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
