@@ -28,9 +28,9 @@ namespace GrpcServiceProject
             using (var dbcontext = _contextFactory.CreateDbContext())
             {
                 var firUsr = dbcontext.Users.FindAsync(1);
-                _logger.LogInformation($"Before {XFF}");
-                secret = firUsr.GetAwaiter().GetResult().passwd;
-                _logger.LogInformation($"Below {XFF}");
+                _logger.LogInformation($"{XFF}");
+                var secretResul = firUsr.GetAwaiter().GetResult();
+                secret = secretResul.passwd;
             }
             //_logger.LogInformation($"{XFF}");
             return Task.FromResult(new HelloReply()
