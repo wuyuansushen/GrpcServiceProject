@@ -27,10 +27,16 @@ namespace GrpcServiceProject
             string secret;
             using (var dbcontext = _contextFactory.CreateDbContext())
             {
-                var firUsr = dbcontext.Users.FindAsync(1);
+                //var firUsr = dbcontext.Users.FindAsync(1);
                 _logger.LogInformation($"{XFF}");
-                var secretResul = firUsr.GetAwaiter().GetResult();
-                secret = secretResul.passwd;
+                //var secretResul = firUsr.GetAwaiter().GetResult();
+                //secret = secretResul.passwd;
+
+                var linqout =
+                    from item in dbcontext.Users
+                    where item.ID == 1
+                    select item;
+                secret= (linqout.FirstOrDefault()).passwd;
             }
             //_logger.LogInformation($"{XFF}");
             return Task.FromResult(new HelloReply()

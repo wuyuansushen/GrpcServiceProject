@@ -12,11 +12,6 @@ namespace GrpcClient
         {
             // The port number(5001) must match the port of the gRPC server.
             var i= Greet("https://grpc.fiveelementgod.xyz:443");
-            while(!i.IsCompleted)
-            {
-                Console.WriteLine("...");
-                Thread.Sleep(1000);
-            }
             await i;
         }
 
