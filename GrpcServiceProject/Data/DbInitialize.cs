@@ -38,6 +38,9 @@ namespace GrpcServiceProject.Data
             };
 
             context.Users.Add(rootUser);
+            context.Users.Add(normalUser);
+            context.Users.Add(testUser);
+            context.Users.Add(anonymousUser);
             context.SaveChanges();
         }
     }
