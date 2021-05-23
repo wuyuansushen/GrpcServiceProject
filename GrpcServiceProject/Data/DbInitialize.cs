@@ -16,6 +16,27 @@ namespace GrpcServiceProject.Data
                 passwd="1234567890"
             };
 
+            var normalUser = new User()
+            {
+                ID = 2,
+                userName = "normal",
+                passwd = "0987654321"
+            };
+
+            var testUser = new User()
+            {
+                ID = 3,
+                userName = "test",
+                passwd = "test1234567890"
+            };
+
+            var anonymousUser = new User()
+            {
+                ID = 4,
+                userName = "anonymous",
+                passwd="0987654321"
+            };
+
             context.Users.Add(rootUser);
             context.SaveChanges();
         }

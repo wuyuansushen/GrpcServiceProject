@@ -37,6 +37,7 @@ namespace GrpcServiceProject
                     where item.ID == 1
                     select item;
                 secret= (linqout.FirstOrDefault()).passwd;
+                
             }
             //_logger.LogInformation($"{XFF}");
             return Task.FromResult(new HelloReply()
