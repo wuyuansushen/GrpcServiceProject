@@ -11,20 +11,16 @@ namespace GrpcClient
         static async Task Main(string[] args)
         {
             // The port number(5001) must match the port of the gRPC server.
-            var i= Greet("https://grpc.fiveelementgod.xyz:443");
+            var i= GetIP("https://grpc.fiveelementgod.xyz:443",1);
             await i;
         }
 
-        static async Task Greet(string urlIn)
-        {
-            await Greet(urlIn, "GayHub");
-        }
-        static async Task Greet(string urlIn, string requestName)
+        static async Task GetIP(string urlIn, int id)
         {
             using var channel = GrpcChannel.ForAddress(urlIn);
-            var client = new Greeter.GreeterClient(channel);
-            var reply = await client.SayHelloAsync(new HelloRequest { Name = requestName });
-            Console.WriteLine("IP: " + reply.Message);
+            var client = new IPService.IPServiceClient(channel);
+            var reply = await client.GetIPAsync(new UserID { ID = id }) ;
+            Console.WriteLine("IP: "+reply.IP);
         }
     }
 }

@@ -70,7 +70,7 @@ namespace GrpcServiceProject
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<GetIPService>();
                 endpoints.MapHealthChecks("/health");
                 endpoints.MapGet("/", async (context) =>
                 {

@@ -3,17 +3,28 @@ option csharp_namespace = "GrpcClient";
 package myrpc;
 
 // The greeting service definition.
-service Greeter {
+/*service Greeter {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc GetIP (UserID) returns (IPReflection);
+}*/
+service IPService {
+  // Sends a greeting
+  rpc GetIP (UserID) returns (IPReflection);
 }
 
 // The request message containing the user's name.
-message HelloRequest {
+/*message HelloRequest {
   string name = 1;
+}*/
+message UserID{
+	int32 ID=1;
 }
 
 // The response message containing the greetings.
-message HelloReply {
+/*message HelloReply {
   string message = 1;
+}*/
+
+message IPReflection{
+	string IP=1;
 }
